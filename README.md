@@ -1,4 +1,4 @@
-makeMIT-Exo
+makeMIT: lexo
 ===========
 
 Exo - Glove to teach American Sign Language
