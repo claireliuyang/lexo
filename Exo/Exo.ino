@@ -51,40 +51,34 @@ int fingerPos[26][5] = {
   {90, 90, 90, 90, 90} // z 
 };
 
+Servo finger;
+
 void setup() 
 {   
-//  thumb.servo.attach(9);
-//  index.servo.attach(9);  // attaches the servo on pin 9 to the servo object
-//  middle.servo.attach(9);
-//  ring.servo.attach(9);
-  pinky.servo.attach(9);  
-  Serial.println("Motors attached to pins.");
-  
-  Serial.println("Servos set to 0.");
-  
-  Serial.println("Testing the fingers");  
+    
+  finger.attach(9);   
   
   Serial.begin(9600);     
+  
+  delay(6000);
 } 
  
  
 void loop() 
 {
-  // send data only when you receive data:
-  driveIndex(150);
-  delay(1000);
-  driveIndex(0);
-  delay(1000);
-  driveIndex(90);
+//  Servo finger;
+//  
+  finger.write(20);
+  Serial.println(analogRead(0));
+  delay(2000);
+  finger.write(90);  
+  Serial.println(analogRead(0));
+  delay(2000);
+  finger.write(160);
+  Serial.println(analogRead(0));
+  delay(2000);
+
   
-  if (Serial.available() > 0) {
-    // read the incoming byte:          
-    char incomingChar = (char) Serial.read();
-    
-    // say what you got:
-    Serial.print("Teaching..");
-    Serial.println(incomingChar);
-  }
 };
 
 /*
@@ -104,27 +98,27 @@ void loop()
 //};
 
 // Drive the index finger.
-void driveIndex(int target) {
-  int stepsize = index.pos < target ? 1: -1;
-  // Keep rotating until the position is the target!
-  while (index.pos != target) {
-    Serial.println(index.pos);
-    index.servo.write(index.pos);
-    index.pos+=stepsize;
-    delay(15);
-  };
-}
-
-
-void teach(char letter) 
-{
-  // Translate the letter input to an index.
-  String alphabet = "abcdefghijklmnopqrstuvwxyz";
-  int letterIndex = alphabet.indexOf(letter);  
-  // Drive all of the fingers to the appropriate positions.
-  driveIndex(fingerPos[letterIndex][0]);
-//  for (int i = 0; i < sizeof(fingers); i++) {
-////    drive(&fingers[i], fingerPos[letterIndex][i]);
-//    driveIndex(fingerPos[letterIndex][i]);
-//  }  
-};
+//void driveIndex(int target) {
+//  int stepsize = index.pos < target ? 1: -1;
+//  // Keep rotating until the position is the target!
+//  while (index.pos != target) {
+//    Serial.println(index.pos);
+//    index.servo.write(index.pos);
+//    index.pos+=stepsize;
+//    delay(15);
+//  };
+//}
+//
+//
+//void teach(char letter) 
+//{
+//  // Translate the letter input to an index.
+//  String alphabet = "abcdefghijklmnopqrstuvwxyz";
+//  int letterIndex = alphabet.indexOf(letter);  
+//  // Drive all of the fingers to the appropriate positions.
+//  driveIndex(fingerPos[letterIndex][0]);
+////  for (int i = 0; i < sizeof(fingers); i++) {
+//////    drive(&fingers[i], fingerPos[letterIndex][i]);
+////    driveIndex(fingerPos[letterIndex][i]);
+////  }  
+//};
